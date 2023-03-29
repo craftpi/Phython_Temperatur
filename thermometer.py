@@ -1,13 +1,14 @@
+import string
 import tkinter as tk
+from tkinter import ttk
 import json
-
 
 # ---------------------------------------------------------- THERMOMETER ----------------------------------------------------------#
 
 class Thermometer:
-    def __init__(self, standort: str, einheit: str):
-        self.standort = standort
-        self.einheit = einheit
+    def __init__(self):
+        self.standort = None
+        self.einheit = None
         self.temperatur = 0.0
 
     def setStandort(self, new_standort: str) -> None:
@@ -34,9 +35,9 @@ class Thermometer:
                     print("Die Temperatur kann nicht kleiner als -459.67 Fahrenheit sein.")
                     raise ValueError("Die Temperatur kann nicht kleiner als -459.67 Fahrenheit sein.")
                 self.temperatur = self.convertToKelvin((temp - 32) * 5 / 9)
-            # else:
-            #   print("Falsche Einheit: muss 'C' oder 'F' sein.")
-            #   raise ValueError("Falsche Einheit: muss 'C' oder 'F' sein.")
+            else:
+               print("Falsche Einheit: muss 'C' oder 'F' sein.")
+               raise ValueError("Falsche Einheit: muss 'C' oder 'F' sein.")
         except:
             print("Korigiere dein Termometer mit beachtung dieses Fehlers!")
 
@@ -49,20 +50,54 @@ class Thermometer:
     def getTempF(self) -> float:
         return self.temperatur * 9 / 5 - 459.67
 
+def Name() -> str:
+    name = entryS1.get()
+    return name
 
-def createTherm():
-    therm = {
-        'ort': entryS1.get(),
-        'einheit': entryS2.get(),
-        'temp': entryS3.get()
-    }
-    json.dump(therm, open('thermometer.json', 'w'))
+def createTherm() -> str:
+    print(Name())
+    name =Name()
+    name = Thermometer()
+   # '"' + entryS1.get() + '"', '"' + str(entryS2.get()) + '"'
+    name.setStandort(entryS1.get())
+    name.setEinheit(entryS2.get())
+    name.tempSetzen(int(entryS3.get()))
+   
+    a=name.getTempC()
+    b=name.getEinheit()
+    c=name.getStandort()
+    print(a)
+    print(b)
+    print(c)
+
+def read(na):
+    na=Thermometer()
+    na.getEinheit()
+    return na
+
+   #therm = {
+   #     'ort': entryS1.get(),
+    #    'einheit': entryS2.get(),
+     #   'temp': entryS3.get()
+    #}
+    #json.dump(therm, open('thermometer.json', 'w'))
 
 
 def giveWerte():
-    with open('thermometer.json', 'r') as file:
-        obj = json.load(file)
-        print(obj)
+    name=entryS4.get() 
+   # c=Thermometer
+    #f=.c.getEinheit()
+    print(name)
+    #print(f)
+    print(read(name))
+    
+    
+
+
+    
+    #with open('thermometer.json', 'r') as file:
+     #   obj = json.load(file)
+      #  print(obj)
 
 
 # -------------------------------------------------------------- GUI --------------------------------------------------------------#
@@ -99,9 +134,11 @@ def on_focusout(e, t):
         e.insert(0, t)
         e.config(fg='grey')
 
-
+global entryS1
 entryS1 = tk.Entry(root, justify="center", width=45)
+global entryS2
 entryS2 = tk.Entry(root, justify="center", width=45)
+global entryS3
 entryS3 = tk.Entry(root, justify="center", width=45)
 entryS4 = tk.Entry(root, justify="center", width=45)
 
