@@ -130,3 +130,4 @@ dmypy.json
 
 #Visual studio extensions
 .vs
+.idea
