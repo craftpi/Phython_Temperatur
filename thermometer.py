@@ -85,6 +85,7 @@ label.pack()
 S1text = "Welchen Ort moechtest du speichern"
 S2text = "In welcher Einheit moechtest du du die Temperatur speichern"
 S3text = "Wie hoch ist die Temperatur"
+S4text = "Welches Thermometer moechtest du suchen"
 
 
 def on_entry_click(e, t):
@@ -102,6 +103,7 @@ def on_focusout(e, t):
 entryS1 = tk.Entry(root, justify="center", width=45)
 entryS2 = tk.Entry(root, justify="center", width=45)
 entryS3 = tk.Entry(root, justify="center", width=45)
+entryS4 = tk.Entry(root, justify="center", width=45)
 
 entryS1.insert(0, S1text)
 entryS1.config(fg='gray')
@@ -109,6 +111,8 @@ entryS2.insert(0, S2text)
 entryS2.config(fg='gray')
 entryS3.insert(0, S3text)
 entryS3.config(fg='gray')
+entryS4.insert(0, S4text)
+entryS4.config(fg='gray')
 
 entryS1.bind('<FocusIn>', lambda event: on_entry_click(entryS1, S1text))
 entryS1.bind('<FocusOut>', lambda event: on_focusout(entryS1, S1text))
@@ -116,17 +120,21 @@ entryS2.bind('<FocusIn>', lambda event: on_entry_click(entryS2, S2text))
 entryS2.bind('<FocusOut>', lambda event: on_focusout(entryS2, S2text))
 entryS3.bind('<FocusIn>', lambda event: on_entry_click(entryS3, S3text))
 entryS3.bind('<FocusOut>', lambda event: on_focusout(entryS3, S3text))
+entryS4.bind('<FocusIn>', lambda event: on_entry_click(entryS4, S4text))
+entryS4.bind('<FocusOut>', lambda event: on_focusout(entryS4, S4text))
 
 entryS1.pack()
 entryS2.pack()
 entryS3.pack()
 labelw.pack()
 
-button2 = tk.Button(root, text="Ausfuehren", command=button_action2)
-button2.pack()
+button2 = tk.Button(root, text="Suchen", command=button_action2)
 
-button1 = tk.Button(root, text="Ausfuehren", command=button_action1)
+button1 = tk.Button(root, text="Erstellen", command=button_action1)
+
 button1.pack()
+entryS4.pack()
+button2.pack()
 
 root.bind('<Return>', lambda event: button1.invoke())
 root.bind('<Return>', lambda event: button2.invoke())
