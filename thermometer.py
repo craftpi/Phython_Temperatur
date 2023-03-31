@@ -1,68 +1,73 @@
+from lib2to3.pgen2.token import NAME
 import string
 import tkinter as tk
 from tkinter import ttk
 import json
 
 # ---------------------------------------------------------- THERMOMETER ----------------------------------------------------------#
+def define_class():
+    class Thermometer:
+        def __init__(self):
+            self.standort = None
+            self.einheit = None
+            self.temperatur = 0.0
 
-class Thermometer:
-    def __init__(self):
-        self.standort = None
-        self.einheit = None
-        self.temperatur = 0.0
+        def setStandort(self, new_standort: str) -> None:
+            self.standort = new_standort
 
-    def setStandort(self, new_standort: str) -> None:
-        self.standort = new_standort
+        def getStandort(self) -> str:
+            return self.standort
 
-    def getStandort(self) -> str:
-        return self.standort
+        def setEinheit(self, new_einheit: str) -> None:
+            self.einheit = new_einheit
 
-    def setEinheit(self, new_einheit: str) -> None:
-        self.einheit = new_einheit
+        def getEinheit(self) -> str:
+            return self.einheit
 
-    def getEinheit(self) -> str:
-        return self.einheit
+        def tempSetzen(self, temp: float) -> None:
+            try:
+                if self.einheit == "C":
+                    if temp < -273.15:
+                        print("Die Temperatur kann nicht kleiner als -273.15 Grad Celsius sein.")
+                        raise ValueError("Die Temperatur kann nicht kleiner als -273.15 Grad Celsius sein.")
+                    self.temperatur = self.convertToKelvin(temp)
+                elif self.einheit == "F":
+                    if temp < -459.67:
+                        print("Die Temperatur kann nicht kleiner als -459.67 Fahrenheit sein.")
+                        raise ValueError("Die Temperatur kann nicht kleiner als -459.67 Fahrenheit sein.")
+                    self.temperatur = self.convertToKelvin((temp - 32) * 5 / 9)
+                else:
+                    print("Falsche Einheit: muss 'C' oder 'F' sein.")
+                    raise ValueError("Falsche Einheit: muss 'C' oder 'F' sein.")
+            except:
+                print("Korigiere dein Termometer mit beachtung dieses Fehlers!")
 
-    def tempSetzen(self, temp: float) -> None:
-        try:
-            if self.einheit == "C":
-                if temp < -273.15:
-                    print("Die Temperatur kann nicht kleiner als -273.15 Grad Celsius sein.")
-                    raise ValueError("Die Temperatur kann nicht kleiner als -273.15 Grad Celsius sein.")
-                self.temperatur = self.convertToKelvin(temp)
-            elif self.einheit == "F":
-                if temp < -459.67:
-                    print("Die Temperatur kann nicht kleiner als -459.67 Fahrenheit sein.")
-                    raise ValueError("Die Temperatur kann nicht kleiner als -459.67 Fahrenheit sein.")
-                self.temperatur = self.convertToKelvin((temp - 32) * 5 / 9)
-            else:
-               print("Falsche Einheit: muss 'C' oder 'F' sein.")
-               raise ValueError("Falsche Einheit: muss 'C' oder 'F' sein.")
-        except:
-            print("Korigiere dein Termometer mit beachtung dieses Fehlers!")
+        def convertToKelvin(self, temp: float) -> float:
+            return temp + 273.15
 
-    def convertToKelvin(self, temp: float) -> float:
-        return temp + 273.15
+        def getTempC(self) -> float:
+            return self.temperatur - 273.15
 
-    def getTempC(self) -> float:
-        return self.temperatur - 273.15
+        def getTempF(self) -> float:
+            return self.temperatur * 9 / 5 - 459.67
+    return Thermometer
 
-    def getTempF(self) -> float:
-        return self.temperatur * 9 / 5 - 459.67
+
+define_class()
 
 def Name() -> str:
     name = entryS1.get()
     return name
 
 def createTherm() -> str:
-    print(Name())
+    global cl
+    cl=define_class()
     name =Name()
-    name = Thermometer()
+    name = cl
    # '"' + entryS1.get() + '"', '"' + str(entryS2.get()) + '"'
     name.setStandort(entryS1.get())
     name.setEinheit(entryS2.get())
     name.tempSetzen(int(entryS3.get()))
-   
     a=name.getTempC()
     b=name.getEinheit()
     c=name.getStandort()
@@ -71,6 +76,7 @@ def createTherm() -> str:
     print(c)
 
 def read(na):
+    define_class()
     na=Thermometer()
     na.getEinheit()
     return na
@@ -84,12 +90,16 @@ def read(na):
 
 
 def giveWerte():
-    name=entryS4.get() 
+    na=entryS4.get() 
    # c=Thermometer
     #f=.c.getEinheit()
-    print(name)
+    print(na)
     #print(f)
-    print(read(name))
+    #na..Thermometer().getTempC()
+    g=na.cl.getEinheit()
+    print(dir(na))
+    print(g)
+
     
     
 
